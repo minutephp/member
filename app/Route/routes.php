@@ -4,6 +4,8 @@
 use Minute\Model\Permission;
 use Minute\Routing\Router;
 
+$router->get('/start-trial', 'Members/StartTrial', false)->setDefault('_noView', true);;
+
 $router->get('/members', 'Members/SampleDashboard.php', true, 'm_configs[type] as configs')
        ->setReadPermission('configs', Permission::ANY_USER)->setDefault('type', 'members');
 
