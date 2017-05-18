@@ -29,7 +29,6 @@
                             <div class="box box-{{dashboardForm.$valid && 'success' || 'danger'}}">
                                 <div class="box-header with-border">
                                     <h3 class="box-title"><span ng-bind-html="(settings.heading.heading || defaults.heading.html) | replaceTags | safe"></span></h3>
-                                    <p ng-if="settings.heading.subHeading" ng-bind-html="settings.heading.subHeading | replaceTags | safe"></p>
 
                                     <div class="box-tools" ng-if="!!settings.buttons.length">
                                         <span ng-repeat="button in settings.buttons">
@@ -41,6 +40,8 @@
                                 </div>
 
                                 <div class="box-body">
+                                    <p ng-if="settings.heading.subHeading" ng-bind-html="settings.heading.subHeading | replaceTags | safe"></p>
+
                                     <div ng-repeat="step in settings.steps" ng-show="mainCtrl.isVisible(step.levels)" class="wow bounceInUp" data-wow-delay="{{$index}}s">
                                         <div class="row">
                                             <div class="col-md-7">
@@ -53,7 +54,7 @@
                                             </div>
 
                                             <div class="col-md-5" ng-show="!!step.thumbnail">
-                                                <a ng-href="{{step.href || '#'}}" youtube-link>
+                                                <a ng-href="{{step.video || '#'}}" youtube-link="{controls: 1}">
                                                     <img src="" ng-src="{{step.thumbnail}}" width="95%" class="thumbnail" style="cursor:{{settings.video.id && 'pointer' || 'default'}}">
                                                 </a>
                                             </div>

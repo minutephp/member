@@ -165,7 +165,7 @@
                                                 <textarea class="form-control" ng-model="step.description" rows="3"
                                                           placeholder="Step description, e.g. Explain what to click, what to enter where, what to expect, etc"></textarea>
                                                 <br>
-                                                <minute-uploader ng-model="step.thumbnail" type="image" preview="true" remove="true" label="Upload step thumbnail.."></minute-uploader>
+                                                <minute-uploader ng-model="step.thumbnail" type="image" preview="true" url="true" remove="true" label="Upload step thumbnail.."></minute-uploader>
                                                 <br>&nbsp;
                                                 <input type="url" class="form-control" ng-model="step.video" placeholder="Youtube video to explain this step (optional)" />
                                                 <br>
