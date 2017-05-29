@@ -12,7 +12,7 @@ module Members {
 
     export class ngClickContainer implements ng.IDirective {
         restrict = 'A';
-        scope = {ngClickContainer: '&'};
+        scope:any = {ngClickContainer: '&'};
 
         static instance = () => new ngClickContainer;
 
@@ -28,7 +28,7 @@ module Members {
 
     export class autoFocus implements ng.IDirective {
         restrict = 'A';
-        scope = {};
+        scope:any = {};
 
         static instance = () => new autoFocus;
 
