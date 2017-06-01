@@ -49,6 +49,7 @@
                                 <a ng-switch-when="false" href="" ng-href="{{toolbar.href}}" tooltip="{{toolbar.tooltip}}" tooltip-position="bottom">
                                     <i class="fa {{toolbar.icon}}" ng-show="toolbar.icon"></i>
                                     <span class="label label-{{toolbar.badgeClass || 'danger'}}" ng-show="toolbar.badge">{{toolbar.badge}}</span>
+                                    <span ng-bind-html="toolbar.html" ng-if="!!toolbar.html"></span>
                                 </a>
                                 <!--simple button end-->
 
