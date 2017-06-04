@@ -19,9 +19,6 @@ $binding->addMultiple([
 
     ['event' => MemberEvent::IMPORT_MEMBERS_TOOLBAR_LINKS, 'handler' => [Toolbar::class, 'render']],
 
-    //
-    ['event' => MemberEvent::IMPORT_MEMBERS_TOOLBAR_LINKS, 'handler' => [Trial::class, 'expiryNotice']],
-
     //profile tabs
     ['event' => MemberEvent::IMPORT_MEMBERS_PROFILE_TABS, 'handler' => [MemberMenu::class, 'profileTabs']],
 

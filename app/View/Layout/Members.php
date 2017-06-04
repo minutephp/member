@@ -43,6 +43,11 @@
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
+                            <li ng-if="!session.site.hideTrial && session.user.trial && session.user.expiry < 30">
+                                <a ng-href="{{session.urls.pricing || '/pricing'}}" tooltip="Free trial account" tooltip-position="bottom">
+                                    <span class="badge label-{{session.user.expiry < 10 && 'danger' || 'info'}}"><b>{{session.user.expiry}} days</b><span class="hidden-xs hidden-sm"> remaining</span></span>
+                                </a>
+                            </li>
                             <li ng-repeat="toolbar in members.data.toolbar | orderBy:'priority'" ng-class="{'dropdown tasks-menu': !!toolbar.children.length}" ng-switch="!!toolbar.children.length"
                                 class="notifications-menu">
                                 <!--simple button start-->

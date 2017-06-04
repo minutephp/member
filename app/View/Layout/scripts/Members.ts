@@ -4,19 +4,33 @@ module Members {
     export class MembersController {
         public links = [];
 
-        constructor(public $scope:any, public $timeout:ng.ITimeoutService, public gettextCatalog:any, public $minute: any) {
+        constructor(public $scope: any, public $timeout: ng.ITimeoutService, public gettextCatalog: any, public gettext: any, public $minute: any, public $ui: any) {
             this.gettextCatalog.setCurrentLanguage('en');
+
             $scope.data = {menu: [], profile: []};
+
+            if (!$scope.session.site.skipAccessCheck) {
+                let pass = false;
+                angular.forEach($scope.session.user.groups, (group) => {
+                    pass = pass || (group.access == 'primary' && group.expiry_days > 0);
+                });
+
+                if (!pass) {
+                    this.$ui.alert(this.gettext('<b>Your account has expired.</b> Please buy a subscription if you wish to continue using this account.'), 'Continue').then(() => {
+                        top.location.href = $scope.session.site.urls.pricing || '/pricing';
+                    });
+                }
+            }
         }
     }
 
     export class ngClickContainer implements ng.IDirective {
         restrict = 'A';
-        scope:any = {ngClickContainer: '&'};
+        scope: any = {ngClickContainer: '&'};
 
         static instance = () => new ngClickContainer;
 
-        link = ($scope:any, element:ng.IAugmentedJQuery) => {
+        link = ($scope: any, element: ng.IAugmentedJQuery) => {
             element.on('click', (ev) => {
                 let target = $(ev.target);
                 if (!target.is('a, button, input') && !(target.is('span') && target.parent().is('a, button, input'))) {
@@ -28,11 +42,11 @@ module Members {
 
     export class autoFocus implements ng.IDirective {
         restrict = 'A';
-        scope:any = {};
+        scope: any = {};
 
         static instance = () => new autoFocus;
 
-        link = ($scope:any, element:ng.IAugmentedJQuery) => {
+        link = ($scope: any, element: ng.IAugmentedJQuery) => {
             setTimeout((e) => e.focus(), 400, element);
         }
     }
@@ -58,7 +72,7 @@ module Members {
     }
 
     angular.module('MembersApp', ['MinuteFramework', 'MinuteImporter', 'AngularTreeMenu', 'MinuteDirectives', 'MinuteFilters', 'angular-loading-bar', 'angular.filter', 'gettext', 'angular-bs-tooltip', 'ngSanitize'])
-        .controller('membersController', ['$scope', '$timeout', 'gettextCatalog', '$minute', MembersController])
+        .controller('membersController', ['$scope', '$timeout', 'gettextCatalog', 'gettext', '$minute', '$ui', MembersController])
         .directive('ngClickContainer', ngClickContainer.instance)
         .directive('autoFocus', autoFocus.instance)
         .filter("firstChar", MyFilters.firstChar)
