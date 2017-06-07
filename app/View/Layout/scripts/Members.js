@@ -14,9 +14,11 @@ var Members;
             $scope.data = { menu: [], profile: [] };
             if (!$scope.session.site.skipAccessCheck) {
                 var pass_1 = false;
-                angular.forEach($scope.session.user.groups, function (group) {
-                    pass_1 = pass_1 || (group.access == 'primary' && group.expiry_days > 0);
-                });
+                if ($scope.session.user) {
+                    angular.forEach($scope.session.user.groups, function (group) {
+                        pass_1 = pass_1 || (group.access == 'primary' && group.expiry_days > 0);
+                    });
+                }
                 if (!pass_1) {
                     this.$ui.alert(this.gettext('<b>Your account has expired.</b> Please buy a subscription if you wish to continue using this account.'), 'Continue').then(function () {
                         top.location.href = $scope.session.site.urls.pricing || '/pricing';

@@ -32,7 +32,10 @@ namespace Minute\Menu {
         }
 
         public function profileTabs(ImportEvent $event) {
-            $tabs = [["href" => "/members/profile", "label" => "Profile", "icon" => "fa-user", "priority" => 1]];
+            $tabs = [
+                ["href" => "/members/profile", "label" => "Profile", "icon" => "fa-user", "priority" => 1],
+                ["href" => "/members/account", "label" => "Account", "icon" => "fa-lock", "priority" => 3],
+            ];
 
             $event->addContent($tabs);
         }

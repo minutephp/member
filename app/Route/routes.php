@@ -11,9 +11,10 @@ $router->get('/members', 'Members/SampleDashboard.php', true, 'm_configs[type] a
 
 $router->get('/members/profile', 'Members/Profile/SampleProfilePage.php', true, 'users', 'm_user_data[users.user_id][99] as data')
        ->setReadPermission('users', Permission::SAME_USER)->setDefault('users', '*');
-
 $router->post('/members/profile', null, true, 'users', 'm_user_data as data')
        ->setUpdatePermission('users', Permission::SAME_USER)->setAllPermissions('data', Permission::SAME_USER);
+
+$router->get('/members/account', 'Members/Profile/SampleAccountPage.php', true);
 
 $router->get('/admin/members', null, 'admin', 'm_configs[type] as configs')
        ->setReadPermission('configs', 'admin')->setDefault('type', 'members');
@@ -49,3 +50,6 @@ $router->get('/admin/members/banners/edit/{member_banner_id}', null, 'admin', 'm
        ->setReadPermission('banners', 'admin')->setDefault('member_banner_id', '0');
 $router->post('/admin/members/banners/edit/{member_banner_id}', null, 'admin', 'm_member_banners as banners')
        ->setAllPermissions('banners', 'admin')->setDefault('member_banner_id', '0');
+
+$router->post('/members/update-password', 'Members/UpdatePassword', true);
+$router->post('/members/cancel-account', 'Members/CancelAccount', true);

@@ -11,9 +11,12 @@ module Members {
 
             if (!$scope.session.site.skipAccessCheck) {
                 let pass = false;
-                angular.forEach($scope.session.user.groups, (group) => {
-                    pass = pass || (group.access == 'primary' && group.expiry_days > 0);
-                });
+
+                if ($scope.session.user) {
+                    angular.forEach($scope.session.user.groups, (group) => {
+                        pass = pass || (group.access == 'primary' && group.expiry_days > 0);
+                    });
+                }
 
                 if (!pass) {
                     this.$ui.alert(this.gettext('<b>Your account has expired.</b> Please buy a subscription if you wish to continue using this account.'), 'Continue').then(() => {
